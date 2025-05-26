@@ -1,55 +1,99 @@
 <html>
 <head>
+<style>
+	body {
+	font-family: Arial, sans-serif;
+	background: #f0f0f0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	}
+
+	.eight-ball {
+	background: black;
+	border-radius: 50%;
+	width: 300px;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+	position: relative;
+	margin-bottom: 20px;
+	}
+
+	.message {
+	background: white;
+	color: black;
+	padding: 20px;
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-weight: bold;
+	font-size: 16px;
+	}
+
+	button {
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	background-color: #333;
+	color: white;
+	border-radius: 5px;
+	}
+
+	button:hover {
+	background-color: #555;
+	}
+</style>
+
 <script type="text/javascript">
+	var strArray = ["It is certain"," It is decidedly so",
+		"Without a doubt","Yes, definitely",
+		"You may rely on it","As I see it, yes",
+		"Most likely","Outlook good",
+		"Yes","Signs point to yes",
+		"Reply hazy, try again","Ask again later",
+		"Better not tell you now","Cannot predict now",
+		"Concentrate and ask again","Don't count on it",
+		"My reply is no","My sources say no",
+		"Outlook not so good","Very doubtful"
+		];
+		
+	var colorArray = ["green","green","green","green","green",
+		"green","green","green","green","green",
+		"blue","blue","blue","blue","blue",
+		"red","red","red","red","red"
+		];
+		
 
-var strArray = ["It is certain."," It is decidedly so.",
-	"Without a doubt.","Yes – definitely.",
-	"You may rely on it.","As I see it, yes.",
-	"Most likely.","Outlook good.",
-	"Yes.","Signs point to yes.",
-	"Reply hazy, try again.","Ask again later.",
-	"Better not tell you now.","Cannot predict now.",
-	"Concentrate and ask again.","Don't count on it.",
-	"My reply is no.","My sources say no.",
-	"Outlook not so good.","Very doubtful."
-	];
-	
-var colorArray = ["green","green","green","green","green",
-	"green","green","green","green","green",
-	"yellow","yellow","yellow","yellow","yellow",
-	"red","red","red","red","red"
-	];
-	
-var resultStyle = "font-weight:bold;color:";
+	function compute() {
+		var arrSize = strArray.length;
+		var index = Math.floor(arrSize * Math.random());
+		return index;
+	}
 
-function compute() {
-	var arrSize = strArray.length;
-	var index = Math.floor(arrSize * Math.random());
-	return index;
-}
-
-
-function showResult(index) {
-    var answerArea = document.getElementById("result");
-    answerArea.style = resultStyle + colorArray[index];
-    answerArea.innerHTML = strArray[index];
-}
-
-
-function handleClick(button) {
-	var computedIndex = compute();
-	showResult(computedIndex);
-    return true;
-}
-
+	function shakeBall() {
+		const messageElement = document.getElementById("eightBallMessage");
+		const randomIndex = compute();
+		messageElement.textContent = strArray[randomIndex];
+		messageElement.style = "color:" + colorArray[randomIndex];
+    }
 </script>
+<title>Magic Eight Ball</title>
 </head>
 
-<body style="background-color:grey">
-
-<span id="result">?</span><br><br>
-
-<button onclick="handleClick(this)">Shake!</button>
-
+<body>
+<div class="eight-ball">
+    <div id="eightBallMessage" class="message">Ask me!</div>
+</div>
+<button onclick="shakeBall()">Shake</button>
 </body>
 </html>
