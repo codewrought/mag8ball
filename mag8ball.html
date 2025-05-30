@@ -52,6 +52,20 @@
 	button:hover {
 	background-color: #555;
 	}
+
+	/* Shake Animation */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-10px); }
+      80% { transform: translateX(10px); }
+      100% { transform: translateX(0); }
+    }
+
+    .shake {
+      animation: shake 0.6s;
+    }
 </style>
 
 <script type="text/javascript">
@@ -81,19 +95,28 @@
 	}
 
 	function shakeBall() {
+		const eightBall = document.getElementById("eightBall");
 		const messageElement = document.getElementById("eightBallMessage");
-		const randomIndex = compute();
-		messageElement.textContent = strArray[randomIndex];
-		messageElement.style = "color:" + colorArray[randomIndex];
-    }
+
+		// Add shake animation
+    	eightBall.classList.add("shake");
+
+ 		// Wait for animation to finish before changing the message
+      	setTimeout(() => {
+			const randomIndex = compute();
+			messageElement.textContent = strArray[randomIndex];
+			messageElement.style = "color:" + colorArray[randomIndex];
+			eightBall.classList.remove("shake");
+		}, 600); // Match animation duration
+}
 </script>
 <title>Magic Eight Ball</title>
 </head>
 
 <body>
-<div class="eight-ball">
-    <div id="eightBallMessage" class="message">Ask me!</div>
+ <div id="eightBall" class="eight-ball">
+	<div id="eightBallMessage" class="message">Ask me.</div>
 </div>
-<button onclick="shakeBall()">Shake</button>
+<button onclick="shakeBall()">Shake!</button>
 </body>
 </html>
